@@ -1,0 +1,162 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+{% block content %}
+
+	<!-- CSS ============================================= -->
+	<link rel="stylesheet" href="{% static 'user/css/linearicons.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/themify-icons.css ' %}">
+		<link rel="stylesheet" href="{% static 'user/css/bootstrap.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/owl.carousel.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/nice-select.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/nouislider.min.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/ion.rangeSlider.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/ion.rangeSlider.skinFlat.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/magnific-popup.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/main.css' %}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.3.0/remixicon.css" integrity="sha512-0JEaZ1BDR+FsrPtq5Ap9o05MUwn8lKs2GiCcRVdOH0qDcUcCoMKi8fDVJ9gnG8VN1Mp/vuWw2sMO0SQom5th4g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css">
+        <!-- Default theme -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/themes/default.min.css">
+
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Shooop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">Dashboard</a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li> -->
+              <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link " href="{% url 'products' %}">Product Details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="{% url 'add_product' %}">Add New Product</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+<!--================Add Product Area =================-->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="login_form_inner">
+                    <h3>Fill Up and Add Product</h3>
+                    {% if messages %}
+                    {% for message in messages%}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong>{{message}}</strong>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form class="row login_form"  method="POST" enctype="multipart/form-data" id="contactForm" novalidate="novalidate">
+                        {% csrf_token %}
+
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="" name="prod_name" placeholder="Product Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Product Name'">
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label  for="selectOption">Brand:</label> 
+                            <select class="form-control" id="selectOption" name="brand">
+                              
+                              {% for brand in brands  %}
+                              <option value="{{brand.id}}">{{brand.name}}</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="" name="color" placeholder="color" onfocus="this.placeholder = ''" onblur="this.placeholder = 'color'">
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                          Size:
+                            <input type="number" class="form-control" id="" value="4" max="10" name="size" placeholder="size" onfocus="this.placeholder = ''" onblur="this.placeholder = 'size ID'">
+                        </div>
+                       
+                        <div class="col-md-12 form-group">
+                            <label for="occassion">Occassion:</label>
+                            <select class="form-control" id="selectOption" name="occassion">
+                              <option value="Casuals">Casuals</option>
+                              <option value="Sports">Sports</option>
+                              <option value="Formals">Formals</option>
+                            </select>
+                          </div>
+
+                        <div class="col-md-12 form-group">
+                            <label for="ideal_for">Ideal For:</label>
+                            <select class="form-control" id="selectOption" name="ideal_for">
+                              <option value="Men">Men</option>
+                              <option value="Women">Women</option>
+                              <option value="Kids">Kids</option>
+                            </select>
+                        
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <textarea class="form-control" name="descr" id="" cols="30" rows="10" placeholder="description"></textarea>
+                            
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <input type="file" class="form-control" id="" name="image" accept="image/png, image/jpeg, image/jpg " placeholder="image" onfocus="this.placeholder = ''" onblur="this.placeholder = 'image'">
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                          <label  for="selectOption2">Offers:</label> 
+                          <select class="form-control" id="selectOption2" name="offers">
+                            <option value="">Choose..</option>
+                            {% for offer in offers  %}
+                            <option value="{{offer.id}}">{{offer.name}}</option>
+                            {% endfor %}
+                          </select>
+                      </div>
+
+                        <div class="col-md-12 form-group">
+                            <input type="number" class="form-control" id="" name="stock" placeholder="stock" onfocus="this.placeholder = ''" onblur="this.placeholder = 'stock'" required>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <input type="number" class="form-control" id="" name="price" placeholder="price" onfocus="this.placeholder = ''" onblur="this.placeholder = 'price'" required>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <button type="submit" value="submit" class="primary-btn">Add Product</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Add Product Area =================-->
+{% endblock content %}

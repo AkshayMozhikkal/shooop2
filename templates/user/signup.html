@@ -1,0 +1,103 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Sign Up/Register</h1>
+					<nav class="d-flex align-items-center">
+						<a href="{% url 'home' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="{% url 'signup' %}">Sign Up/Register</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Sign up Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="login_form_inner">
+						{% if otp %}
+						<h3>Verify OTP</h3>
+						{% else %}
+						<h3>Fill up & Register</h3>
+						{% endif %}
+						{% if messages %}
+						{% for message in messages%}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						<strong>{{message}}</strong>
+						</div>
+						{% endfor %}
+						{% endif %}
+
+						{% if otp %}
+
+						<form class="row login_form" action="{% url 'signup' %}" method="post" id="contactForm" novalidate="novalidate">
+							{% csrf_token %}
+
+							<div class="col-md-12 form-group">
+								<input type="email" class="form-control" id="" name="email" placeholder="Email ID"   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email ID'" value="{{usr.email}}" hidden>
+							</div>
+                           
+
+							<div class="col-md-12 form-group">
+								<input type="number" class="form-control" id="" name="otp" placeholder="Enter OTP here.." onfocus="this.placeholder = ''" onblur="this.placeholder = 'OTP'">
+							</div>
+
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Register</button>
+							</div>
+
+						{% else %}
+						<form class="row login_form" action="{% url 'signup' %}" method="post" id="contactForm" novalidate="novalidate">
+							{% csrf_token %}
+
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="" name="first_name" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required>
+							</div>
+
+                            <div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="" name="last_name" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required>
+							</div>
+
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" required>
+							</div>
+
+                            <div class="col-md-12 form-group">
+								<input type="email" class="form-control" id="" name="email" placeholder="Email ID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email ID'" required>
+							</div>
+                           
+                            <div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="" name="password1" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required>
+							</div>
+
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="" name="password2" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'" required>
+							</div>
+
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									<input type="checkbox" id="f-option2" name="selector" required>
+									<label for="f-option2">Agree to the Terms & Conditions</label>
+								</div>
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Register</button>
+							</div>
+						</form>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Sign up Box Area =================-->
+    {% endblock content %}
